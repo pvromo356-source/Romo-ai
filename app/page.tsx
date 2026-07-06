@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { WebsiteAnalyzerForm } from "@/components/landing/WebsiteAnalyzerForm";
 
 export default function Home() {
@@ -22,6 +23,15 @@ export default function Home() {
         </p>
 
         <WebsiteAnalyzerForm />
+
+        <div className="mt-5">
+          <Link
+            href="/pricing"
+            className="text-sm font-medium text-white/50 underline-offset-4 transition hover:text-white hover:underline"
+          >
+            View pricing
+          </Link>
+        </div>
 
         <div className="mt-12 grid w-full max-w-4xl gap-4 md:grid-cols-3">
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-left">

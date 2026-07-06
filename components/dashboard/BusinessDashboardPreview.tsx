@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { mockDashboard } from "@/data";
+import { UpgradeBanner } from "@/components/dashboard/UpgradeBanner";
 
 function getStatusStyle(status: string) {
   if (status === "good") {
@@ -112,7 +113,9 @@ export function BusinessDashboardPreview() {
           </div>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-4">
+                <UpgradeBanner />
+
+<div className="grid gap-4 md:grid-cols-4">
           {dashboard.summaryCards.map((card) => (
             <div
               key={card.id}
