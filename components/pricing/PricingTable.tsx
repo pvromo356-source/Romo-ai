@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const plans = [
   {
     name: "Free Scan",
@@ -21,7 +23,7 @@ const plans = [
     cadence: "per month",
     description: "For small businesses that want basic business clarity and local insights.",
     cta: "Start Starter",
-    href: "/pricing",
+    href: "/checkout?plan=starter",
     highlight: false,
     features: [
       "1 business",
@@ -38,7 +40,7 @@ const plans = [
     cadence: "per month",
     description: "For businesses that want Romo to track revenue, customers, costs, and opportunities.",
     cta: "Unlock Growth",
-    href: "/pricing",
+    href: "/checkout?plan=growth",
     highlight: true,
     features: [
       "Everything in Starter",
@@ -55,7 +57,7 @@ const plans = [
     cadence: "per month",
     description: "For operators who want stronger reporting, approvals, and agent workflows.",
     cta: "Choose Pro",
-    href: "/pricing",
+    href: "/checkout?plan=pro",
     highlight: false,
     features: [
       "Everything in Growth",
@@ -72,7 +74,7 @@ const plans = [
     cadence: "per month",
     description: "For teams, multi-location businesses, and serious operators.",
     cta: "Choose Business",
-    href: "/pricing",
+    href: "/checkout?plan=business",
     highlight: false,
     features: [
       "Multiple users",
@@ -135,7 +137,7 @@ export function PricingTable() {
             {plan.description}
           </p>
 
-          <a
+          <Link
             href={plan.href}
             className={`mt-6 inline-flex w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition ${
               plan.highlight
@@ -144,7 +146,7 @@ export function PricingTable() {
             }`}
           >
             {plan.cta}
-          </a>
+          </Link>
 
           <div className={`mt-6 h-px ${plan.highlight ? "bg-black/10" : "bg-white/10"}`} />
 

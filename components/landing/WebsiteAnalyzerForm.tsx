@@ -1,5 +1,6 @@
 "use client";
 
+import type { FormEvent } from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -24,13 +25,13 @@ export function WebsiteAnalyzerForm() {
   const [websiteUrl, setWebsiteUrl] = useState("");
   const [error, setError] = useState("");
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const normalizedUrl = normalizeWebsiteUrl(websiteUrl);
 
     if (!normalizedUrl) {
-      setError("Enter a business website to analyze.");
+      setError("Enter a business website to scan.");
       return;
     }
 
@@ -43,27 +44,30 @@ export function WebsiteAnalyzerForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-8 flex w-full max-w-2xl flex-col gap-4">
-      <div className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-3 md:flex-row">
-        <input
-          value={websiteUrl}
-          onChange={(event) => setWebsiteUrl(event.target.value)}
-          placeholder="https://yourbusiness.com"
-          className="min-h-14 flex-1 rounded-xl border border-white/10 bg-black px-4 text-base text-white outline-none transition placeholder:text-white/30 focus:border-white/30"
-        />
+    <form onSubmit={handleSubmit} className="mx-auto mt-8 flex w-full max-w-2xl flex-col gap-4">
+      <div className="rounded-[1.4rem] border border-white/12 bg-white/[0.035] p-2 shadow-2xl shadow-black/40">
+        <div className="flex flex-col gap-2 md:flex-row">
+          <input
+            value={websiteUrl}
+            onChange={(event) => setWebsiteUrl(event.target.value)}
+            aria-label="Business website"
+            placeholder="yourbusiness.com"
+            className="min-h-14 flex-1 rounded-[1rem] border border-white/10 bg-black/70 px-4 text-[15px] font-medium text-white outline-none transition placeholder:text-white/32 focus:border-white/35 focus:bg-black"
+          />
 
-        <button
-          type="submit"
-          className="min-h-14 rounded-xl bg-white px-6 text-sm font-semibold text-black transition hover:bg-white/80"
-        >
-          Analyze
-        </button>
+          <button
+            type="submit"
+            className="min-h-14 rounded-[1rem] bg-white px-6 text-[14px] font-bold text-black transition hover:bg-white/85"
+          >
+            Run Free Scan
+          </button>
+        </div>
       </div>
 
-      {error ? <p className="text-sm text-red-300">{error}</p> : null}
+      {error ? <p className="text-sm font-medium text-red-300">{error}</p> : null}
 
-      <p className="text-sm text-white/40">
-        Start with a website. Romo gives value first, then improves as you connect more data.
+      <p className="text-center text-[13px] leading-6 text-white/42">
+        No setup required. Start with a website scan. Improve precision when you connect more data.
       </p>
     </form>
   );

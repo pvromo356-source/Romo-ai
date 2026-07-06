@@ -24,3 +24,109 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+/* =====================================================
+   ROMO AI - Global Typography Quality System
+   ===================================================== */
+
+:root {
+  --romo-letter-tight: -0.04em;
+  --romo-letter-soft: -0.02em;
+  --romo-text-muted: rgba(255, 255, 255, 0.62);
+  --romo-text-soft: rgba(255, 255, 255, 0.46);
+}
+
+html {
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-synthesis-weight: none;
+}
+
+body {
+  font-feature-settings:
+    "kern" 1,
+    "liga" 1,
+    "calt" 1;
+  color: white;
+  background: black;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+  letter-spacing: var(--romo-letter-tight);
+}
+
+h1 {
+  font-weight: 650;
+  line-height: 0.95;
+}
+
+h2 {
+  font-weight: 620;
+  line-height: 1.05;
+}
+
+h3 {
+  font-weight: 620;
+  line-height: 1.15;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a,
+button {
+  letter-spacing: -0.01em;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.34);
+}
+
+::selection {
+  background: white;
+  color: black;
+}
+
+/* Reusable premium text helpers */
+.romo-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+
+.romo-muted {
+  color: var(--romo-text-muted);
+}
+
+.romo-soft {
+  color: var(--romo-text-soft);
+}
+
+.romo-display {
+  letter-spacing: -0.055em;
+  line-height: 0.92;
+  font-weight: 680;
+}
+
+.romo-card-title {
+  letter-spacing: -0.025em;
+  font-weight: 650;
+}
+
+.romo-body {
+  line-height: 1.75;
+  color: var(--romo-text-muted);
+}

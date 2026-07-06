@@ -25,9 +25,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} bg-black antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} bg-black antialiased selection:bg-white selection:text-black`}>
         <AppNav />
-        <div className="pt-16">{children}</div>
+        <div className="pt-[72px]">{children}</div>
       </body>
     </html>
   );
