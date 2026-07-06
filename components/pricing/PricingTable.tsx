@@ -9,7 +9,7 @@ import {
   ScanSearch,
   ShieldCheck,
 } from "lucide-react";
-import { RomoBadge, RomoButton, RomoCard } from "@/components/ui";
+import { RomoBadge, RomoButton, RomoCard, RomoStagger, RomoStaggerItem } from "@/components/ui";
 
 type Plan = {
   name: string;
@@ -115,7 +115,7 @@ const plans: Plan[] = [
     cadence: "contact us",
     description: "For larger businesses that need custom setup, security, and integrations.",
     cta: "Contact Sales",
-    href: "#white-glove",
+    href: "/checkout?plan=enterprise",
     icon: Crown,
     features: [
       "Custom integrations",
@@ -130,115 +130,116 @@ const plans: Plan[] = [
 
 export function PricingTable() {
   return (
-    <div className="grid gap-5 lg:grid-cols-3">
+    <RomoStagger className="grid gap-5 lg:grid-cols-3" delay={0.08}>
       {plans.map((plan) => {
         const Icon = plan.icon;
         const isHighlighted = Boolean(plan.highlight);
 
         return (
-          <RomoCard
-            key={plan.name}
-            tone={isHighlighted ? "light" : "default"}
-            className={`relative flex min-h-full flex-col p-6 ${
-              isHighlighted ? "shadow-white/10" : ""
-            }`}
-          >
-            {isHighlighted ? (
-              <div className="absolute right-5 top-5">
-                <RomoBadge className="border-black/10 bg-black text-white">
-                  Most Popular
-                </RomoBadge>
-              </div>
-            ) : null}
-
-            <div
-              className={`flex h-11 w-11 items-center justify-center rounded-2xl border ${
-                isHighlighted
-                  ? "border-black/10 bg-black text-white"
-                  : "border-white/10 bg-white/[0.04] text-white"
+          <RomoStaggerItem key={plan.name}>
+            <RomoCard
+              tone={isHighlighted ? "light" : "default"}
+              className={`relative flex min-h-full flex-col p-6 ${
+                isHighlighted ? "shadow-white/10" : ""
               }`}
             >
-              <Icon className="h-5 w-5" strokeWidth={2.1} />
-            </div>
+              {isHighlighted ? (
+                <div className="absolute right-5 top-5">
+                  <RomoBadge className="border-black/10 bg-black text-white">
+                    Most Popular
+                  </RomoBadge>
+                </div>
+              ) : null}
 
-            <p
-              className={`mt-6 text-[12px] font-semibold uppercase tracking-[0.34em] ${
-                isHighlighted ? "text-black/45" : "text-white/35"
-              }`}
-            >
-              {plan.name}
-            </p>
-
-            <div className="mt-5 flex items-end gap-2">
-              <p className="text-5xl font-semibold tracking-[-0.055em]">
-                {plan.price}
-              </p>
-              <p
-                className={`pb-2 text-sm font-medium ${
-                  isHighlighted ? "text-black/45" : "text-white/42"
+              <div
+                className={`flex h-11 w-11 items-center justify-center rounded-2xl border ${
+                  isHighlighted
+                    ? "border-black/10 bg-black text-white"
+                    : "border-white/10 bg-white/[0.04] text-white"
                 }`}
               >
-                {plan.cadence}
-              </p>
-            </div>
+                <Icon className="h-5 w-5" strokeWidth={2.1} />
+              </div>
 
-            <p
-              className={`mt-4 min-h-16 text-[14px] leading-7 ${
-                isHighlighted ? "text-black/62" : "text-white/56"
-              }`}
-            >
-              {plan.description}
-            </p>
-
-            <div className="mt-6">
-              <RomoButton
-                href={plan.href}
-                size="lg"
-                variant={isHighlighted ? "dark" : "primary"}
-                className="w-full"
+              <p
+                className={`mt-6 text-[12px] font-semibold uppercase tracking-[0.34em] ${
+                  isHighlighted ? "text-black/45" : "text-white/35"
+                }`}
               >
-                {plan.cta}
-              </RomoButton>
-            </div>
+                {plan.name}
+              </p>
 
-            <div
-              className={`mt-6 h-px ${
-                isHighlighted ? "bg-black/10" : "bg-white/10"
-              }`}
-            />
-
-            <ul className="mt-6 flex flex-1 flex-col gap-3">
-              {plan.features.map((feature) => (
-                <li
-                  key={feature}
-                  className={`flex items-start gap-3 text-sm leading-6 ${
-                    isHighlighted ? "text-black/70" : "text-white/62"
+              <div className="mt-5 flex items-end gap-2">
+                <p className="text-5xl font-semibold tracking-[-0.055em]">
+                  {plan.price}
+                </p>
+                <p
+                  className={`pb-2 text-sm font-medium ${
+                    isHighlighted ? "text-black/45" : "text-white/42"
                   }`}
                 >
-                  <CheckCircle2
-                    className={`mt-0.5 h-4 w-4 shrink-0 ${
-                      isHighlighted ? "text-black" : "text-white/55"
-                    }`}
-                    strokeWidth={2.2}
-                  />
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-
-            {isHighlighted ? (
-              <div className="mt-6 rounded-2xl border border-black/10 bg-black/[0.04] p-4">
-                <div className="flex items-start gap-3">
-                  <ShieldCheck className="mt-0.5 h-4 w-4 text-black/70" strokeWidth={2.1} />
-                  <p className="text-sm leading-6 text-black/62">
-                    Recommended for businesses that want Romo to track more than a website scan.
-                  </p>
-                </div>
+                  {plan.cadence}
+                </p>
               </div>
-            ) : null}
-          </RomoCard>
+
+              <p
+                className={`mt-4 min-h-16 text-[14px] leading-7 ${
+                  isHighlighted ? "text-black/62" : "text-white/56"
+                }`}
+              >
+                {plan.description}
+              </p>
+
+              <div className="mt-6">
+                <RomoButton
+                  href={plan.href}
+                  size="lg"
+                  variant={isHighlighted ? "dark" : "primary"}
+                  className="w-full"
+                >
+                  {plan.cta}
+                </RomoButton>
+              </div>
+
+              <div
+                className={`mt-6 h-px ${
+                  isHighlighted ? "bg-black/10" : "bg-white/10"
+                }`}
+              />
+
+              <ul className="mt-6 flex flex-1 flex-col gap-3">
+                {plan.features.map((feature) => (
+                  <li
+                    key={feature}
+                    className={`flex items-start gap-3 text-sm leading-6 ${
+                      isHighlighted ? "text-black/70" : "text-white/62"
+                    }`}
+                  >
+                    <CheckCircle2
+                      className={`mt-0.5 h-4 w-4 shrink-0 ${
+                        isHighlighted ? "text-black" : "text-white/55"
+                      }`}
+                      strokeWidth={2.2}
+                    />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {isHighlighted ? (
+                <div className="mt-6 rounded-2xl border border-black/10 bg-black/[0.04] p-4">
+                  <div className="flex items-start gap-3">
+                    <ShieldCheck className="mt-0.5 h-4 w-4 text-black/70" strokeWidth={2.1} />
+                    <p className="text-sm leading-6 text-black/62">
+                      Recommended for businesses that want Romo to track more than a website scan.
+                    </p>
+                  </div>
+                </div>
+              ) : null}
+            </RomoCard>
+          </RomoStaggerItem>
         );
       })}
-    </div>
+    </RomoStagger>
   );
 }

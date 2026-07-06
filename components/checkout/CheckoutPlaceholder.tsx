@@ -11,7 +11,7 @@ import {
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
-import { RomoBadge, RomoButton, RomoCard } from "@/components/ui";
+import { RomoBadge, RomoButton, RomoCard, RomoFadeIn } from "@/components/ui";
 
 const planDetails = {
   starter: {
@@ -66,12 +66,45 @@ const planDetails = {
       "Higher usage limits",
     ],
   },
+  enterprise: {
+    name: "Enterprise",
+    price: "Custom",
+    cadence: "contact sales",
+    description: "Custom setup, reporting, security review, and integrations for larger businesses.",
+    bestFor: "Larger businesses that need a custom Business Brain implementation.",
+    unlocks: [
+      "Custom integrations",
+      "Custom reporting",
+      "White glove setup options",
+      "Dedicated support",
+    ],
+  },
+  "white-glove": {
+    name: "White Glove Setup",
+    price: "$499",
+    cadence: "one-time",
+    description: "Hands-on setup for the first Business Brain, data connections, and first report.",
+    bestFor: "Owners who want help getting Romo set up correctly from the beginning.",
+    unlocks: [
+      "Initial setup support",
+      "Data connection guidance",
+      "First report preparation",
+      "Business Brain configuration",
+    ],
+  },
 };
 
 type PlanKey = keyof typeof planDetails;
 
 function getPlan(plan: string | null) {
-  if (plan === "starter" || plan === "growth" || plan === "pro" || plan === "business") {
+  if (
+    plan === "starter" ||
+    plan === "growth" ||
+    plan === "pro" ||
+    plan === "business" ||
+    plan === "enterprise" ||
+    plan === "white-glove"
+  ) {
     return planDetails[plan as PlanKey];
   }
 
@@ -90,163 +123,175 @@ export function CheckoutPlaceholder() {
 
         <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center">
           <div className="mx-auto max-w-4xl text-center">
-            <RomoBadge>Checkout Preview</RomoBadge>
+            <RomoFadeIn delay={0.02}>
+              <RomoBadge>Checkout Preview</RomoBadge>
+            </RomoFadeIn>
 
-            <p className="mt-7 text-[12px] font-semibold uppercase tracking-[0.35em] text-white/35">
-              Secure checkout coming next.
-            </p>
+            <RomoFadeIn delay={0.08}>
+              <p className="mt-7 text-[12px] font-semibold uppercase tracking-[0.35em] text-white/35">
+                Secure checkout coming next.
+              </p>
+            </RomoFadeIn>
 
-            <h1 className="mt-5 text-5xl font-semibold leading-[0.94] tracking-[-0.055em] md:text-7xl lg:text-[5.4rem]">
-              Unlock {selectedPlan.name}.
-            </h1>
+            <RomoFadeIn delay={0.14} y={18}>
+              <h1 className="mt-5 text-5xl font-semibold leading-[0.94] tracking-[-0.055em] md:text-7xl lg:text-[5.4rem]">
+                Unlock {selectedPlan.name}.
+              </h1>
+            </RomoFadeIn>
 
-            <p className="mx-auto mt-6 max-w-3xl text-[17px] leading-8 text-white/64 md:text-[18px]">
-              This page is prepared for Stripe. No payment is collected yet.
-            </p>
+            <RomoFadeIn delay={0.2}>
+              <p className="mx-auto mt-6 max-w-3xl text-[17px] leading-8 text-white/64 md:text-[18px]">
+                This page is prepared for Stripe. No payment is collected yet.
+              </p>
+            </RomoFadeIn>
           </div>
 
-          <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_0.82fr]">
-            <RomoCard className="p-7">
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-white">
-                  <Rocket className="h-5 w-5" strokeWidth={2.2} />
+          <RomoFadeIn delay={0.3}>
+            <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_0.82fr]">
+              <RomoCard className="p-7">
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-white">
+                    <Rocket className="h-5 w-5" strokeWidth={2.2} />
+                  </div>
+
+                  <RomoBadge tone="warning" className="tracking-[0.2em]">
+                    Not Live Yet
+                  </RomoBadge>
                 </div>
 
-                <RomoBadge tone="warning" className="tracking-[0.2em]">
-                  Not Live Yet
-                </RomoBadge>
-              </div>
-
-              <p className="mt-8 text-[12px] font-semibold uppercase tracking-[0.34em] text-white/35">
-                Selected Plan
-              </p>
-
-              <div className="mt-5 flex items-end gap-3">
-                <p className="text-6xl font-semibold tracking-[-0.055em]">
-                  {selectedPlan.price}
+                <p className="mt-8 text-[12px] font-semibold uppercase tracking-[0.34em] text-white/35">
+                  Selected Plan
                 </p>
-                <p className="pb-3 text-sm font-medium text-white/42">
-                  {selectedPlan.cadence}
+
+                <div className="mt-5 flex items-end gap-3">
+                  <p className="text-6xl font-semibold tracking-[-0.055em]">
+                    {selectedPlan.price}
+                  </p>
+                  <p className="pb-3 text-sm font-medium text-white/42">
+                    {selectedPlan.cadence}
+                  </p>
+                </div>
+
+                <h2 className="mt-6 text-3xl font-semibold tracking-[-0.04em]">
+                  {selectedPlan.name}
+                </h2>
+
+                <p className="mt-4 max-w-2xl text-[15px] leading-7 text-white/60">
+                  {selectedPlan.description}
                 </p>
-              </div>
 
-              <h2 className="mt-6 text-3xl font-semibold tracking-[-0.04em]">
-                {selectedPlan.name}
-              </h2>
+                <div className="mt-7 rounded-2xl border border-white/10 bg-black/45 p-5">
+                  <div className="flex items-start gap-3">
+                    <Sparkles className="mt-0.5 h-4 w-4 text-white/55" strokeWidth={2.1} />
+                    <div>
+                      <p className="text-sm font-semibold text-white">
+                        Best for
+                      </p>
+                      <p className="mt-1 text-sm leading-6 text-white/55">
+                        {selectedPlan.bestFor}
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
-              <p className="mt-4 max-w-2xl text-[15px] leading-7 text-white/60">
-                {selectedPlan.description}
-              </p>
+                <div className="mt-7">
+                  <p className="text-[12px] font-semibold uppercase tracking-[0.34em] text-white/35">
+                    Unlocks
+                  </p>
 
-              <div className="mt-7 rounded-2xl border border-white/10 bg-black/45 p-5">
-                <div className="flex items-start gap-3">
-                  <Sparkles className="mt-0.5 h-4 w-4 text-white/55" strokeWidth={2.1} />
-                  <div>
-                    <p className="text-sm font-semibold text-white">
-                      Best for
+                  <ul className="mt-4 grid gap-3 md:grid-cols-2">
+                    {selectedPlan.unlocks.map((item) => (
+                      <li key={item} className="flex items-start gap-3 text-sm leading-6 text-white/62">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-white/55" strokeWidth={2.2} />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </RomoCard>
+
+              <RomoCard tone="light" className="p-7">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-black/10 bg-black text-white">
+                  <CreditCard className="h-5 w-5" strokeWidth={2.2} />
+                </div>
+
+                <p className="mt-7 text-[12px] font-semibold uppercase tracking-[0.34em] text-black/40">
+                  Checkout Summary
+                </p>
+
+                <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em]">
+                  Ready for Stripe.
+                </h2>
+
+                <p className="mt-4 text-[15px] leading-7 text-black/62">
+                  The checkout experience is ready visually. The next payment mission will create a real Stripe checkout session.
+                </p>
+
+                <div className="mt-7 rounded-2xl border border-black/10 bg-black/[0.035] p-5">
+                  <div className="flex items-center justify-between gap-4">
+                    <p className="text-sm font-semibold text-black/65">Plan</p>
+                    <p className="text-sm font-bold">{selectedPlan.name}</p>
+                  </div>
+
+                  <div className="mt-4 flex items-center justify-between gap-4">
+                    <p className="text-sm font-semibold text-black/65">Price</p>
+                    <p className="text-sm font-bold">
+                      {selectedPlan.price} {selectedPlan.cadence}
                     </p>
-                    <p className="mt-1 text-sm leading-6 text-white/55">
-                      {selectedPlan.bestFor}
+                  </div>
+
+                  <div className="mt-4 flex items-center justify-between gap-4">
+                    <p className="text-sm font-semibold text-black/65">Today</p>
+                    <p className="text-sm font-bold">$0 collected</p>
+                  </div>
+                </div>
+
+                <div className="mt-7 flex flex-col gap-4">
+                  <div className="flex items-start gap-3">
+                    <LockKeyhole className="mt-0.5 h-4 w-4 text-black/55" strokeWidth={2.1} />
+                    <p className="text-sm leading-6 text-black/62">
+                      Secure checkout will be handled by Stripe when payments go live.
+                    </p>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <ShieldCheck className="mt-0.5 h-4 w-4 text-black/55" strokeWidth={2.1} />
+                    <p className="text-sm leading-6 text-black/62">
+                      After payment, Romo will unlock stronger data connections and better precision.
                     </p>
                   </div>
                 </div>
-              </div>
 
-              <div className="mt-7">
-                <p className="text-[12px] font-semibold uppercase tracking-[0.34em] text-white/35">
-                  Unlocks
-                </p>
+                <button
+                  disabled
+                  className="mt-8 inline-flex w-full items-center justify-center rounded-full border border-black bg-black px-6 py-3.5 text-[14px] font-bold text-white opacity-55"
+                >
+                  Stripe Checkout Coming Next
+                </button>
 
-                <ul className="mt-4 grid gap-3 md:grid-cols-2">
-                  {selectedPlan.unlocks.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-sm leading-6 text-white/62">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-white/55" strokeWidth={2.2} />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </RomoCard>
+                <RomoButton
+                  href="/pricing"
+                  variant="secondary"
+                  size="lg"
+                  className="mt-3 w-full border-black/10 bg-transparent text-black hover:bg-black/[0.04]"
+                >
+                  <ArrowLeft className="mr-2 h-4 w-4" strokeWidth={2.2} />
+                  Back to Pricing
+                </RomoButton>
+              </RomoCard>
+            </div>
+          </RomoFadeIn>
 
-            <RomoCard tone="light" className="p-7">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-black/10 bg-black text-white">
-                <CreditCard className="h-5 w-5" strokeWidth={2.2} />
-              </div>
-
-              <p className="mt-7 text-[12px] font-semibold uppercase tracking-[0.34em] text-black/40">
-                Checkout Summary
-              </p>
-
-              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em]">
-                Ready for Stripe.
-              </h2>
-
-              <p className="mt-4 text-[15px] leading-7 text-black/62">
-                The checkout experience is ready visually. The next payment mission will create a real Stripe checkout session.
-              </p>
-
-              <div className="mt-7 rounded-2xl border border-black/10 bg-black/[0.035] p-5">
-                <div className="flex items-center justify-between gap-4">
-                  <p className="text-sm font-semibold text-black/65">Plan</p>
-                  <p className="text-sm font-bold">{selectedPlan.name}</p>
-                </div>
-
-                <div className="mt-4 flex items-center justify-between gap-4">
-                  <p className="text-sm font-semibold text-black/65">Price</p>
-                  <p className="text-sm font-bold">
-                    {selectedPlan.price} {selectedPlan.cadence}
-                  </p>
-                </div>
-
-                <div className="mt-4 flex items-center justify-between gap-4">
-                  <p className="text-sm font-semibold text-black/65">Today</p>
-                  <p className="text-sm font-bold">$0 collected</p>
-                </div>
-              </div>
-
-              <div className="mt-7 flex flex-col gap-4">
-                <div className="flex items-start gap-3">
-                  <LockKeyhole className="mt-0.5 h-4 w-4 text-black/55" strokeWidth={2.1} />
-                  <p className="text-sm leading-6 text-black/62">
-                    Secure checkout will be handled by Stripe when payments go live.
-                  </p>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <ShieldCheck className="mt-0.5 h-4 w-4 text-black/55" strokeWidth={2.1} />
-                  <p className="text-sm leading-6 text-black/62">
-                    After payment, Romo will unlock stronger data connections and better precision.
-                  </p>
-                </div>
-              </div>
-
-              <button
-                disabled
-                className="mt-8 inline-flex w-full items-center justify-center rounded-full border border-black bg-black px-6 py-3.5 text-[14px] font-bold text-white opacity-55"
+          <RomoFadeIn delay={0.42}>
+            <div className="mt-8 flex justify-center">
+              <Link
+                href="/"
+                className="text-[13px] font-semibold text-white/45 underline decoration-white/15 underline-offset-4 transition hover:text-white hover:decoration-white/50"
               >
-                Stripe Checkout Coming Next
-              </button>
-
-              <RomoButton
-                href="/pricing"
-                variant="secondary"
-                size="lg"
-                className="mt-3 w-full border-black/10 bg-transparent text-black hover:bg-black/[0.04]"
-              >
-                <ArrowLeft className="mr-2 h-4 w-4" strokeWidth={2.2} />
-                Back to Pricing
-              </RomoButton>
-            </RomoCard>
-          </div>
-
-          <div className="mt-8 flex justify-center">
-            <Link
-              href="/"
-              className="text-[13px] font-semibold text-white/45 underline decoration-white/15 underline-offset-4 transition hover:text-white hover:decoration-white/50"
-            >
-              Start a new scan instead
-            </Link>
-          </div>
+                Start a new scan instead
+              </Link>
+            </div>
+          </RomoFadeIn>
         </div>
       </section>
     </main>
