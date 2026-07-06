@@ -1,3 +1,7 @@
+"use client";
+
+import { useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 import { mockDashboard } from "@/data";
 
 function getStatusStyle(status: string) {
@@ -20,38 +24,76 @@ function getStatusStyle(status: string) {
   return "border-white/10 bg-white/5 text-white";
 }
 
+function getWebsiteDisplayName(website: string | null) {
+  if (!website) {
+    return "";
+  }
+
+  try {
+    const url = new URL(website);
+    return url.hostname.replace("www.", "");
+  } catch {
+    return website.replace("https://", "").replace("http://", "").replace("www.", "");
+  }
+}
+
 export function BusinessDashboardPreview() {
+  const searchParams = useSearchParams();
+  const submittedWebsite = searchParams.get("website");
+
   const dashboard = mockDashboard;
   const business = dashboard.business;
   const intelligence = dashboard.intelligence;
+
+  const websiteDisplayName = useMemo(() => {
+    return getWebsiteDisplayName(submittedWebsite);
+  }, [submittedWebsite]);
+
+  const dashboardTitle = websiteDisplayName
+    ? `Analysis for ${websiteDisplayName}`
+    : business.identity.name;
+
+  const websiteLabel = websiteDisplayName || business.identity.website || "Website not provided";
 
   return (
     <main className="min-h-screen bg-black text-white">
       <section className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-6 py-10">
         <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
           <p className="text-sm uppercase tracking-[0.3em] text-white/40">
-            Romo AI Business Brain
+            Romo Business Brain
           </p>
 
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight">
-            {business.identity.name}
+          <p className="mt-2 text-sm uppercase tracking-[0.25em] text-white/35">
+            Know what&apos;s wrong. Know what to do next.
+          </p>
+
+          <h1 className="mt-4 text-4xl font-semibold tracking-tight">
+            {dashboardTitle}
           </h1>
 
           <p className="mt-3 max-w-3xl text-white/60">
             {business.health.summary}
           </p>
 
+          <div className="mt-5 rounded-2xl border border-yellow-500/20 bg-yellow-500/10 p-4">
+            <p className="text-sm font-medium text-yellow-100">
+              Level 0 Website Scan
+            </p>
+            <p className="mt-1 text-sm text-yellow-100/70">
+              Romo is using the website available now. Connect sales, reviews, accounting,
+              or supplier data to improve precision.
+            </p>
+          </div>
+
           <div className="mt-6 grid gap-4 md:grid-cols-4">
             <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
-              <p className="text-sm text-white/40">Industry</p>
-              <p className="mt-2 text-lg font-medium">{business.identity.industry}</p>
+              <p className="text-sm text-white/40">Website submitted</p>
+              <p className="mt-2 truncate text-lg font-medium">{websiteLabel}</p>
             </div>
 
             <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
-              <p className="text-sm text-white/40">Location</p>
-              <p className="mt-2 text-lg font-medium">
-                {business.identity.location.city}, {business.identity.location.state}
-              </p>
+              <p className="text-sm text-white/40">Scan type</p>
+              <p className="mt-2 text-lg font-medium">Website only</p>
             </div>
 
             <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
@@ -163,7 +205,7 @@ export function BusinessDashboardPreview() {
           </p>
           <h2 className="mt-2 text-2xl font-semibold">Data Requests</h2>
           <p className="mt-2 max-w-3xl text-sm text-white/50">
-            Romo AI can help with limited information, but results become more precise
+            Romo can help with limited information, but results become more precise
             when the business connects better data sources.
           </p>
 

@@ -5,16 +5,20 @@ export default function Home() {
     <main className="min-h-screen bg-black text-white">
       <section className="mx-auto flex min-h-screen w-full max-w-6xl flex-col items-center justify-center px-6 py-20 text-center">
         <div className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs uppercase tracking-[0.3em] text-white/50">
-          Romo AI Business Brain
+          Romo Business Brain
         </div>
 
-        <h1 className="mt-8 max-w-5xl text-5xl font-semibold tracking-tight md:text-7xl">
+        <p className="mt-8 text-sm uppercase tracking-[0.3em] text-white/35">
+          Stop guessing. Start improving.
+        </p>
+
+        <h1 className="mt-5 max-w-5xl text-5xl font-semibold tracking-tight md:text-7xl">
           Find what is costing your business money.
         </h1>
 
         <p className="mt-6 max-w-3xl text-lg leading-8 text-white/60">
-          Romo AI analyzes your business, explains what is happening, recommends what to do next,
-          and improves as you connect more data.
+          See what matters. Act faster. Romo analyzes your business, explains what is happening,
+          recommends what to do next, and improves as you connect more data.
         </p>
 
         <WebsiteAnalyzerForm />

@@ -58,7 +58,7 @@ export function WebsiteAnalyzerForm() {
       {error ? <p className="text-sm text-red-300">{error}</p> : null}
 
       <p className="text-sm text-white/40">
-        Start with a website. Romo AI gives value first, then improves as you connect more data.
+        Start with a website. Romo gives value first, then improves as you connect more data.
       </p>
     </form>
   );
