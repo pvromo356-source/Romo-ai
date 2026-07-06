@@ -1,9 +1,12 @@
 "use client";
 
-import { useMemo } from "react";
+import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { mockDashboard } from "@/data";
 import { UpgradeBanner } from "@/components/dashboard/UpgradeBanner";
+
+const RECENT_SCAN_KEY = "romo_recent_scan_website";
 
 function getStatusStyle(status: string) {
   if (status === "good") {
@@ -41,14 +44,60 @@ function getWebsiteDisplayName(website: string | null) {
 export function BusinessDashboardPreview() {
   const searchParams = useSearchParams();
   const submittedWebsite = searchParams.get("website");
+  const [recentWebsite, setRecentWebsite] = useState("");
+
+  useEffect(() => {
+    if (submittedWebsite) {
+      window.localStorage.setItem(RECENT_SCAN_KEY, submittedWebsite);
+      window.dispatchEvent(new Event("romo-recent-scan-updated"));
+      setRecentWebsite(submittedWebsite);
+      return;
+    }
+
+    const savedWebsite = window.localStorage.getItem(RECENT_SCAN_KEY) || "";
+    setRecentWebsite(savedWebsite);
+  }, [submittedWebsite]);
+
+  const activeWebsite = submittedWebsite || recentWebsite;
 
   const dashboard = mockDashboard;
   const business = dashboard.business;
   const intelligence = dashboard.intelligence;
 
   const websiteDisplayName = useMemo(() => {
-    return getWebsiteDisplayName(submittedWebsite);
-  }, [submittedWebsite]);
+    return getWebsiteDisplayName(activeWebsite);
+  }, [activeWebsite]);
+
+  if (!activeWebsite) {
+    return (
+      <main className="min-h-screen bg-black text-white">
+        <section className="mx-auto flex min-h-screen w-full max-w-4xl flex-col items-center justify-center px-6 py-20 text-center">
+          <div className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs uppercase tracking-[0.3em] text-white/50">
+            Romo Business Brain
+          </div>
+
+          <p className="mt-8 text-sm uppercase tracking-[0.3em] text-white/35">
+            Dashboard
+          </p>
+
+          <h1 className="mt-4 text-4xl font-semibold tracking-tight md:text-6xl">
+            No scan results yet.
+          </h1>
+
+          <p className="mt-5 max-w-2xl text-base leading-7 text-white/60">
+            Start with a business website. Romo will run a Level 0 Website Scan and show your first result here.
+          </p>
+
+          <Link
+            href="/"
+            className="mt-8 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/80"
+          >
+            Start First Scan
+          </Link>
+        </section>
+      </main>
+    );
+  }
 
   const dashboardTitle = websiteDisplayName
     ? `Analysis for ${websiteDisplayName}`
@@ -113,9 +162,9 @@ export function BusinessDashboardPreview() {
           </div>
         </div>
 
-                <UpgradeBanner />
+        <UpgradeBanner />
 
-<div className="grid gap-4 md:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-4">
           {dashboard.summaryCards.map((card) => (
             <div
               key={card.id}

@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+const RECENT_SCAN_KEY = "romo_recent_scan_website";
+
 function normalizeWebsiteUrl(value: string) {
   const trimmedValue = value.trim();
 
@@ -34,7 +36,10 @@ export function WebsiteAnalyzerForm() {
 
     setError("");
 
-    router.push(`/dashboard?website=${encodeURIComponent(normalizedUrl)}`);
+    window.localStorage.setItem(RECENT_SCAN_KEY, normalizedUrl);
+    window.dispatchEvent(new Event("romo-recent-scan-updated"));
+
+    router.push(`/analyze?website=${encodeURIComponent(normalizedUrl)}`);
   }
 
   return (
