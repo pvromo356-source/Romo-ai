@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { mockDashboard } from "@/data";
 import { UpgradeBanner } from "@/components/dashboard/UpgradeBanner";
-import { RomoBadge, RomoButton, RomoCard } from "@/components/ui";
+import { RomoBadge, RomoButton, RomoCard, RomoFadeIn, RomoStagger, RomoStaggerItem } from "@/components/ui";
 
 const RECENT_SCAN_KEY = "romo_recent_scan_website";
 
@@ -196,7 +196,8 @@ export function BusinessDashboardPreview() {
         <div className="pointer-events-none absolute left-1/2 top-0 h-px w-[70%] -translate-x-1/2 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
         <div className="relative z-10">
-          <RomoCard className="p-7 md:p-8">
+          <RomoFadeIn delay={0.02}>
+            <RomoCard className="p-7 md:p-8">
             <div className="flex flex-col gap-7 lg:flex-row lg:items-start lg:justify-between">
               <div className="max-w-4xl">
                 <RomoBadge>Romo Business Brain</RomoBadge>
@@ -279,21 +280,22 @@ export function BusinessDashboardPreview() {
               </div>
             </div>
           </RomoCard>
+          </RomoFadeIn>
 
-          <div className="mt-6">
+          <RomoFadeIn delay={0.1} className="mt-6">
             <UpgradeBanner />
-          </div>
+          </RomoFadeIn>
 
-          <div className="mt-6 grid gap-4 md:grid-cols-4">
+          <RomoStagger className="mt-6 grid gap-4 md:grid-cols-4" delay={0.16}>
             {dashboard.summaryCards.map((card) => {
               const status = getStatusStyle(card.status);
               const Icon = status.icon;
 
               return (
-                <div
-                  key={card.id}
-                  className={`rounded-[1.4rem] border p-5 shadow-2xl shadow-black/25 ${status.className}`}
-                >
+                <RomoStaggerItem key={card.id}>
+                  <div
+                    className={`h-full rounded-[1.4rem] border p-5 shadow-2xl shadow-black/25 ${status.className}`}
+                  >
                   <div className="flex items-center justify-between gap-3">
                     <p className="text-sm opacity-75">{card.title}</p>
                     <Icon className="h-4 w-4 opacity-70" strokeWidth={2.1} />
@@ -306,12 +308,14 @@ export function BusinessDashboardPreview() {
                   <p className="mt-3 text-sm leading-6 opacity-75">
                     {card.changeSummary}
                   </p>
-                </div>
+                  </div>
+                </RomoStaggerItem>
               );
             })}
-          </div>
+          </RomoStagger>
 
-          <div className="mt-6 grid gap-6 lg:grid-cols-2">
+          <RomoFadeIn delay={0.22} className="mt-6">
+            <div className="grid gap-6 lg:grid-cols-2">
             <RomoCard>
               <div className="flex items-center gap-3">
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-white">
@@ -420,9 +424,11 @@ export function BusinessDashboardPreview() {
                 ))}
               </div>
             </RomoCard>
-          </div>
+            </div>
+          </RomoFadeIn>
 
-          <RomoCard className="mt-6">
+          <RomoFadeIn delay={0.28}>
+            <RomoCard className="mt-6">
             <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
               <div>
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-white">
@@ -489,8 +495,10 @@ export function BusinessDashboardPreview() {
               ))}
             </div>
           </RomoCard>
+          </RomoFadeIn>
 
-          <RomoCard tone="danger" className="mt-6">
+          <RomoFadeIn delay={0.34}>
+            <RomoCard tone="danger" className="mt-6">
             <div className="flex items-center gap-3">
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-red-400/20 bg-red-500/10 text-red-100">
                 <RefreshCcw className="h-5 w-5" strokeWidth={2.1} />
@@ -528,6 +536,7 @@ export function BusinessDashboardPreview() {
               ))}
             </div>
           </RomoCard>
+          </RomoFadeIn>
         </div>
       </section>
     </main>
