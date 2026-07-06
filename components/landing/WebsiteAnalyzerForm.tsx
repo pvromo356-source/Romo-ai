@@ -3,6 +3,8 @@
 import type { FormEvent } from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { ArrowRight, Clock3 } from "lucide-react";
+import { RomoButton } from "@/components/ui";
 
 const RECENT_SCAN_KEY = "romo_recent_scan_website";
 
@@ -55,20 +57,19 @@ export function WebsiteAnalyzerForm() {
             className="min-h-14 flex-1 rounded-[1rem] border border-white/10 bg-black/70 px-4 text-[15px] font-medium text-white outline-none transition placeholder:text-white/32 focus:border-white/35 focus:bg-black"
           />
 
-          <button
-            type="submit"
-            className="min-h-14 rounded-[1rem] bg-white px-6 text-[14px] font-bold text-black transition hover:bg-white/85"
-          >
+          <RomoButton type="submit" size="lg" className="min-h-14 gap-2 rounded-[1rem]">
             Run Free Scan
-          </button>
+            <ArrowRight className="h-4 w-4" strokeWidth={2.4} />
+          </RomoButton>
         </div>
       </div>
 
       {error ? <p className="text-sm font-medium text-red-300">{error}</p> : null}
 
-      <p className="text-center text-[13px] leading-6 text-white/42">
-        No setup required. Start with a website scan. Improve precision when you connect more data.
-      </p>
+      <div className="flex items-center justify-center gap-2 text-center text-[13px] leading-6 text-white/44">
+        <Clock3 className="h-4 w-4 text-white/42" strokeWidth={2.1} />
+        <p>Takes less than a minute. More data improves precision later.</p>
+      </div>
     </form>
   );
 }
