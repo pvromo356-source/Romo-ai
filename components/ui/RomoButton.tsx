@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
-type RomoButtonVariant = "primary" | "secondary" | "ghost" | "danger";
+type RomoButtonVariant = "primary" | "secondary" | "ghost" | "danger" | "dark";
 type RomoButtonSize = "sm" | "md" | "lg";
 
 type BaseProps = {
@@ -26,6 +26,10 @@ function cn(...classes: Array<string | false | null | undefined>) {
 }
 
 function getVariantClass(variant: RomoButtonVariant) {
+  if (variant === "dark") {
+    return "border-black bg-black text-white hover:bg-black/80";
+  }
+
   if (variant === "secondary") {
     return "border-white/10 bg-white/[0.04] text-white hover:border-white/25 hover:bg-white/10";
   }
